@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Burger Bay</title>
+<link rel="stylesheet" type="text/css" href="burger.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="burgershop.js"></script>
+</head>
+<body>
+	<div class="order">
+		<div class="content">
+			<h1 class="welcome">Welcome to Burger Bay</h1>
+			<h3 class="welcome">Choose your order</h3>
+			<button class="menu" id="dayburger">Burger of the day</button>
+			<br>
+			<button class="menu" id="makeown">Make your own burger</button>
+			<br>
+			<button class="menu" id="exit" value="exit">Exit</button>
+		</div>
+		
+		<div class="type-crust">
+			<h3 class="welcome">Choose your preference</h3>
+			<span></span>
+			<input type="radio" class="menu" name="type" id="veg">
+  			<label for="veg">Veg</label>
+			<input type="radio" name="type" id="non-veg">
+  			<label for="non-veg">Non-Veg</label>
+			<br>
+			<h3 class="welcome">Select crust</h3>
+			<button class="menu crustBtn" value="thin">Thin</button>
+			<br>
+			<button class="menu crustBtn" value="hard">Hard</button>
+			<br>
+			<button class="menu crustBtn" value="soft">Soft</button>
+			<br><br>
+			<button class="menu" id="typeBack" value="exit">Back</button>
+		</div>
+		
+		<div class="filling">
+			<h3 class="welcome">Select filling</h3>
+			<div>
+				<button class="menu fillBtn" id="chikTik" value="chicken">Chicken Tikka - Rs.120</button>
+				<br>
+				<button class="menu fillBtn" id="panTik" value="paneer">Paneer Tikka - Rs.100</button>
+				<br>
+				<button class="menu fillBtn" id="turkMeat" value="turkey">Turkey Meat - Rs.130</button>
+				<br><br>
+				<button class="menu fillBack" id="fillBack">Back</button>
+			</div>
+		</div>
+		
+		<div class="toppings">
+			<h3 class="welcome">Select toppings</h3>
+			<div>
+				<label class="menu check"><input type="checkbox" class="check" value="cucumber"/>Cucumber - Rs.25</label><br>
+				<label class="menu check"><input type="checkbox" class="check" value="tomato"/>Tomato - Rs.20</label><br>
+				<label class="menu check"><input type="checkbox" class="check" value="cabbage"/>Cabbage - Rs.20</label><br>
+				<label class="menu check" id="strip"><input type="checkbox" class="check" value="meat"/>Meat Strip - Rs.45</label>
+				<br><br>
+				<button class="menu confirm">Confirm</button>
+				<button class="menu" id="topBack">Back</button>
+			</div>
+		</div>
+		
+		<div class="invoice">
+			<div class="invoice">
+			<h3 class="welcome">Invoice</h3>
+			<div>
+				<table class="tbl">
+				    <thead>
+				        <tr>
+				            <th>Category</th>
+				            <th>Item</th>
+				            <th>Amount</th>
+				        </tr>
+				    </thead>
+				    <tbody id="tblBody">
+				    </tbody>
+				</table>
+				<button class="menu placeorder">Order</button>
+				<button class="menu" id="invoiceBack">Back</button>
+			</div>
+		</div>
+		</div>
+		<p class="message"></p>
+	</div>
+</body>
+</html>

@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>My Calculator</title>
+<style type="text/css">
+table {
+	border: 20px solid;
+	border-color: navy;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 10%;
+	border-collapse: collapse;
+	box-shadow: 0px 25px 20px 15px darkgrey;
+}
+
+tbody {
+	background-color: black;
+}
+
+input[type="button"] {
+	width: 95%;
+	padding: 35px 42px;
+	background-color: steelblue;
+	color: white;
+	font-size: 24px;
+	font-weight: bold;
+	margin: 5px 5px 5px 5px;
+	cursor: pointer;
+	border: none;
+	border-radius: 5px;
+}
+
+input[type="button"]:hover {
+	background-color: lightseagreen;
+}
+
+input[type="text"] {
+	padding: 15px;
+    font-size: 24px;
+    font-weight: bold;
+    border-radius: 5px;
+    border: 2px solid black;
+    width: 289px;
+    height: 66px;
+    background-color: lightyellow;
+    margin-left: 4px;
+}
+</style>
+</head>
+<body>
+	<table id="calcu">
+		<tr>
+			<td colspan="3"><input type="text" id="result" readonly></td>
+			<td><input id="clr" type="button" value="c" onclick="reset()"/></td>
+		</tr>
+		<tr>
+			<td><input class="number" type="button" value="1" onclick="display('1')"></td>
+			<td><input class="number" type="button" value="2" onclick="display('2')"></td>
+			<td><input class="number" type="button" value="3" onclick="display('3')"></td>
+			<td><input id="div" type="button" value="/" onclick="dispOperator('/')"></td>
+		</tr>
+		<tr>
+			<td><input class="number" type="button" value="4" onclick="display('4')"></td>
+			<td><input class="number" type="button" value="5" onclick="display('5')"></td>
+			<td><input class="number" type="button" value="6" onclick="display('6')"></td>
+			<td><input id="mul" type="button" value="*" onclick="dispOperator('*')"></td>
+		</tr>
+		<tr>
+			<td><input class="number" type="button" value="7" onclick="display('7')"></td>
+			<td><input class="number" type="button" value="8" onclick="display('8')"></td>
+			<td><input class="number" type="button" value="9" onclick="display('9')"></td>
+			<td><input id="sub" type="button" value="-" onclick="dispOperator('-')"></td>
+		</tr>
+		<tr>
+			<td><input class="number" type="button" value="." onclick="display('.')"></td>
+			<td><input class="number" type="button" value="0" onclick="display('0')"></td>
+			<td><input class="number" type="button" value="=" onclick="equals()"></td>
+			<td><input id="add" type="button" value="+" onclick="dispOperator('+')"></td>
+		</tr>
+	</table>
+	
+	<script>
+		var numArr = [];
+		var opArr = [];
+		
+		function display(num) {
+			document.getElementById("result").value += num;
+		}
+		
+		function reset() {
+			numArr = [];
+			opArr = [];
+			document.getElementById("result").value = "";
+		}
+		
+		function dispOperator(operator) {
+			let element = document.getElementById("result").value;
+			if(element.length>0 && element!= "-") {
+				numArr.push(element);
+				opArr.push(operator);
+				console.log(element);
+				console.log(operator);
+				document.getElementById("result").value = "";
+			} else if (element.length === 0 && numArr.length > 0){ 	// for expressions like 5 * / - 6 only '-' is chosen
+				if(operator == "-"){
+					document.getElementById("result").value = "-";	// for operations of -ve nums like 2-(-2) = 4
+				} else {
+					opArr.push(operator);
+					opArr.splice(0,1);
+				}
+			} else {
+				if(operator == "-") {  								//printing '-' if clicked first for -ve numbers
+					document.getElementById("result").value = "-";
+				} else if (operator == "+") {
+					document.getElementById("result").value = "";
+				} else {
+					if(numArr.length === 0){
+						numArr.push("invalid");
+					}
+					return;
+				}
+			}
+		}
+		
+		function equals() {
+			let element = document.getElementById("result").value;
+			
+			if(opArr.length>0 && numArr[0] != "invalid"){
+				numArr.push(element);
+				console.log(element);
+				solve();
+			} else if(numArr[0] == "invalid"){
+				document.getElementById("result").value = "";
+				return;
+			} else if(element.length>0){
+				document.getElementById("result").value = element;
+				return;
+			}
+		}
+		
+		function solve() {
+			
+			var output;
+			var len = numArr.length;
+				var x;
+				var op;
+				var z;
+				var y;
+			for(var i=0; i<len; i++){
+				if(i === 0){
+					x = Number(numArr[i]);
+					op = opArr[i];
+					z = numArr[i+1];
+					y = Number(numArr[i+1]);
+					console.log(x);
+					console.log(op);
+					console.log(z);
+				} else {
+					x = output;
+					op = opArr[i];
+					z = numArr[i+1];
+					y = Number(numArr[i+1]);
+					console.log(x);
+					console.log(op);
+					console.log(z);
+				}
+				
+				if(z == undefined) {
+					break;
+				}
+				
+				switch(op) {
+					case '+' : {
+						output = x + y;
+						document.getElementById("result").value = output;
+						console.log(output);
+						break;
+					}
+					case '-' : {
+						output = x - y;
+						document.getElementById("result").value = output;
+						console.log(output);
+						break;
+					}
+					case '*' : {
+						output = x * y;
+						document.getElementById("result").value = output;
+						console.log(output);
+						break;
+					}
+					case '/' : {
+						output = x / y;
+						document.getElementById("result").value = output;
+						console.log(output);
+						break;
+					}
+				}
+			}
+			numArr = [];
+			opArr = [];
+		}
+		
+	</script>
+	
+	<script> /* colour change */
+		const div = document.getElementById("div");
+		const mul = document.getElementById("mul");
+		const sub = document.getElementById("sub");
+		const add = document.getElementById("add");
+		
+		div.addEventListener('click', function() {
+		    this.style.background = 'cadetblue';
+		    mul.style.background = "steelblue";
+			sub.style.background = "steelblue";
+			add.style.background = "steelblue";
+		});
+		mul.addEventListener('click', function() {
+		    this.style.background = 'cadetblue';
+		    div.style.background = "steelblue";
+			sub.style.background = "steelblue";
+			add.style.background = "steelblue";
+		});
+		sub.addEventListener('click', function() {
+		    this.style.background = 'cadetblue';
+		    mul.style.background = "steelblue";
+			div.style.background = "steelblue";
+			add.style.background = "steelblue";
+		});
+		add.addEventListener('click', function() {
+		    this.style.background = 'cadetblue';
+		    mul.style.background = "steelblue";
+			sub.style.background = "steelblue";
+			div.style.background = "steelblue";
+		});
+		
+		const numbers = document.getElementsByClassName("number");
+		for(let num of numbers){
+			num.addEventListener('click', function removeClick() {
+				div.style.background = "steelblue";
+				mul.style.background = "steelblue";
+				sub.style.background = "steelblue";
+				add.style.background = "steelblue";
+			});
+		}
+		
+		const clr = document.getElementById("clr");
+		clr.addEventListener('click', function removeClick() {
+			div.style.background = "steelblue";
+			mul.style.background = "steelblue";
+			sub.style.background = "steelblue";
+			add.style.background = "steelblue";
+		});
+		
+	</script>
+</body>
+</html>

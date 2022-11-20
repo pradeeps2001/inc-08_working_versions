@@ -1,0 +1,197 @@
+@charset "UTF-8";
+
+* {
+	font-family: 'Inter', sans-serif;
+	text-align: justify;
+}
+
+body {
+	height: 297mm;
+	width: 210mm;
+	margin-left: auto;
+	margin-right: auto;
+	border: solid;
+	border-width: thin;
+}
+
+.header {
+	position: relative;
+	float: right;
+	width: 754px;
+	height: 217px;
+	background-color: #EBEBEB;
+}
+
+#box {
+	height: 217px;
+	background-color: blue;
+	width: 40px;
+	float: left;
+	display: flex;
+	position: absolute;
+}
+
+header {
+	position: relative;
+	margin-left: 15px;
+	margin-top: 4px;
+}
+
+#details {
+	margin-top: 40px;
+	font-size: 15px;
+}
+
+.detail-element {
+	margin-left: 0;
+}
+
+#name {
+	position: absolute;
+	margin: 0;
+	font-family: 'Lato', sans-serif;
+	letter-spacing: 3px;
+	font-weight: 400;
+}
+
+#dp {
+	position: absolute;
+	right: 0;
+	width: 175px;
+	margin-right: 20px;
+	margin-top: 7px;
+}
+
+.icons {
+	margin-right: 7px;
+	display: flex;
+	float: left;
+	margin-top: 0.5px;
+}
+
+.anchor {
+	display: inline-flex;
+}
+
+a {
+	margin-right: 18px;
+}
+
+#firstTitle {
+	margin-top: 235px;
+}
+
+hr {
+	border: solid;
+	border-width: 2px;
+	margin: 0px;
+	width: 570px;
+	color: blue;
+	right: 0;
+	position: absolute;
+	bottom: -0.279px;
+	background-color: blue;
+}
+
+/* body */
+.branch {
+	margin-left: 20px;
+	margin-right: 20px;
+}
+
+.subHeads {
+	font-family: 'Lato', sans-serif;
+	margin: 0;
+	font-size: 18px;
+	letter-spacing: .75px;
+	/* text-decoration: underline;
+	text-decoration-color: blue;
+	text-decoration-thickness: 2px; */
+	margin-left: 24px;
+}
+
+.subHeads::first-letter {
+	font-size: 20px;
+	letter-spacing: 1px;
+}
+
+.branch::before {
+	content: "";
+	width: 7.5px;
+	height: 21px;
+	position: absolute;
+	background: blue;
+	margin-top: 2px;
+	margin-left: 11px;
+}
+
+.tab {
+	display: inline-block;
+	margin-left: 40px;
+}
+
+p {
+	font-size: 15px;
+	margin-left: 10px;
+}
+
+.oneLine {
+	margin-left: 25px;
+}
+
+/* table, th, td {
+	border: solid;
+	border-width: 1px;
+	border-collapse: collapse;
+} */
+table, tr {
+	border: solid;
+	border-width: 1px;
+	border-collapse: collapse;
+}
+
+table {
+	margin: 10px;
+	margin-top: 20px;
+}
+
+tbody {
+	font-size: 15px;
+}
+
+.smallHead {
+	width: 18%;
+	font-size: 16px;
+	letter-spacing: 1px;
+	text-align-last: center;
+	background-color: #EBEBEB;
+}
+
+.bigHead {
+	font-size: 16px;
+	letter-spacing: 1px;
+	text-align-last: center;
+	background-color: #EBEBEB;
+}
+
+td {
+	align-content: center;
+	padding: 10px;
+	text-align: center;
+}
+
+.institute {
+	text-align: start;
+	padding: 12px 0px 12px 30px;
+}
+
+ul {
+	padding: 0;
+	margin-left: 30px;
+	font-size: 15px;
+	margin-right: 10px;
+}
+
+li {
+	padding: 2px 0px;
+}
