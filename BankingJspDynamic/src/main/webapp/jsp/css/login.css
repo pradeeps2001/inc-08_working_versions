@@ -1,0 +1,172 @@
+@charset "UTF-8";
+
+* {
+	margin: 0;
+	padding: 0;
+	font-family: 'Inter', sans-serif;
+}
+
+body {
+	background-image: url('../images/lines.jpg');
+	background-size: cover;
+	object-fit: cover;
+	background-repeat: no-repeat;
+	overflow: hidden;
+}
+
+.parent {
+	position: relative;
+	height: 95vh;
+}
+
+header {
+	height: 16vh;
+	background: radial-gradient(circle, rgba(0, 78, 174, 1) 13%,
+		rgba(22, 206, 255, 1) 100%);
+}
+
+#logo {
+	width: 6.1%;
+	height: 13%;
+	margin-top: 16.5vh;
+	margin-right: 26%;
+	position: absolute;
+	min-width: 110px;
+}
+
+#bankname {
+	font-family: cursive;
+	font-size: 47px;
+	position: absolute;
+	margin-top: 6%;
+	margin-left: 4%;
+}
+
+#line {
+	position: absolute;
+	color: white;
+	margin-top: 10%;
+	margin-left: 4.25%;
+	font-weight: bold;
+}
+
+#motto {
+	display: flex;
+	justify-content: center;
+	position: absolute;
+	margin-top: 13%;
+	margin-left: 3.25%;
+	font-family: serif;
+}
+
+.title {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: white;
+}
+
+/* .container {
+	display: block;
+	width: 500px;
+	margin-top: 125px;
+	padding: 50px 50px;
+	min-height: 350px;
+} */
+
+.container {
+    display: block;
+    width: 435px;
+    min-height: 380px;
+    background-color: #fff;
+    margin: auto;
+    position: relative;
+    z-index: 1;
+    margin-top: 10%;
+    overflow: hidden;
+}
+
+#loginIcon {
+	font-size: 40px;
+}
+
+#userId {
+	margin-top: 75px;
+}
+
+#password {
+	margin-top: 30px;
+}
+
+#loginbtn {
+	margin-left: 85px;
+	width: 182px;
+}
+
+#forgotLink {
+	margin-left: 90px;
+	margin-top: 15px;
+}
+
+/* footer */
+#footer {
+	width: 100%;
+	height: 20px;
+	position: absolute;
+	left: 0px;
+	right: 0px;
+	margin: 20px auto;
+	text-align: center;
+	font-size: 14px;
+	bottom: 0px;
+	min-width: 100%;
+}
+
+#copyright {
+	color: dimgrey;
+}
+
+[placeholder]:focus::-webkit-input-placeholder {
+	transition: text-indent 0.4s 0.4s ease;
+	text-indent: -100%;
+	opacity: 1;
+}
+
+/* @media only screen and (max-width: 600px) {
+	.parent {
+	    width: 100%;
+	    box-shadow: none;
+	    margin: 0px auto;
+	    position: relative;
+	    z-index: 1;
+	    margin-top: 40px;
+	    height: auto;
+	    overflow: hidden;
+	}
+} */
+
+@media only screen and (max-width: 420px) {
+	#footer span, #footer {
+	    font-size: 12px;
+	}
+}
+
+@media ( min-width : 400px) {
+	#logo {
+		margin-top: 16.5vh;
+		min-width: 110px;
+		left: auto;
+	}
+}
+
+@media ( min-width : 1650px) {
+	#bankname {
+		max-width: 100%;
+	}
+	#line {
+		max-width: 100%;
+	}
+	#motto {
+		max-width: 100%;
+	}
+}

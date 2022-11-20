@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Show Accounts</title>
+<meta charset="UTF-8">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+	function call (){
+		var id = $("#custId").val();
+		var accNo;
+		var accType;
+		var branch;
+		var balance;
+		var status;
+		$.ajax ({
+			url : "../servlet", 
+			type:"POST", 
+			asynch:"true",
+			data: { custId : id },
+			success: function(responce){
+				var map = JSON.parse(responce);
+				console.log(map);
+				$(".created").remove();
+				for(var key in map){
+					let obj = map[key];
+					console.log(obj);
+						accNo = obj["accountNo"];
+						accType = obj["accountType"];
+						branch = obj["branch"];
+						balance = obj["balance"];
+						status = obj["status"];
+					$("#tblBody").append(
+						"<tr class=\"created\">"								
+						+"<td>"+accNo+"</td>"
+	 					+"<td>"+accType+"</td>"
+						+"<td>"+branch+"</td>"
+						+"<td>"+balance+"</td>"
+						+"<td>"+status+"</td>"
+						+"</tr>"
+					);
+				}
+			},
+			error: function(){
+				
+			}
+		});
+	}
+</script>
+</head>
+<body>
+	<div>
+		<h4>Account Details</h4>
+		<section>
+			<div>
+				<div>
+					<div id="">
+						<input id="custId" type="number" name="customerId"
+							placeholder="Customer ID" required>
+						<button id="btn" name="data" onclick="call()">Submit</button>
+						<p id="out"></p>
+					</div>
+				</div>
+				<br>
+				<br>
+				<div>
+					<table>
+						<thead>
+							<tr>
+								<th>Account No</th>
+								<th>Account Type</th>
+								<th>Branch</th>
+								<th>Balance</th>
+								<th>Status</th>
+							</tr>
+						</thead>
+						<tbody id="tblBody">
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</section>
+	</div>
+</body>
+</html>

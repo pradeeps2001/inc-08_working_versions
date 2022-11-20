@@ -1,0 +1,251 @@
+@charset "UTF-8";
+
+* {
+	font-family: 'Inter', sans-serif;
+}
+
+.heading {
+	color: black;
+}
+
+body {
+	margin: 0;
+	padding: 20px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: #FFFFF0;
+}
+
+div {
+	width: 100%;
+}
+
+.container {
+	width: 60%;
+}
+
+#smallCard {
+	width: 75%;
+}
+
+#profile-card {
+	width: 75%;
+}
+
+#profile-form {
+	width: 95%;
+}
+
+#smCardBtn {
+	margin-left: 39.5%;
+}
+
+#mdCardBtn {
+	margin-left: 38%;
+}
+
+#profileBtn {
+	margin-left: 31%;
+}
+
+#cusProfileBtn {
+	margin-left: 36%;
+}
+
+#mdLabelBtn {
+	margin-left: 30%;
+}
+
+#approval {
+	height: 28px;
+    width: 80px;
+    margin-bottom: 4px;
+    padding: 1px;
+    font-size: 15px;
+}
+
+section {
+	margin-left: 20px;
+	width: 100%;
+	display: flex;
+}
+
+label {
+	width: 220px;
+	display: inline-block;
+	margin-top: 25px;
+}
+
+#smallLabel {
+	width: 110px;
+}
+
+#mediumLabel {
+	width: 160px;
+	border-top: none;
+	border-left: none;
+	border-right: none;
+	outline: none;
+	background-color: transparent;
+}
+
+#hugeLabel {
+	width: 316px;
+	height: 38px;
+	border-top: none;
+	border-left: none;
+	border-right: none;
+	outline: none;
+	background-color: transparent;
+}
+
+#bigDropdown {
+	width: 56%;
+	border-top: none;
+	border-left: none;
+	border-right: none;
+	outline: none;
+	background-color: transparent;
+}
+
+/* input box */
+#underline {
+	border-top: none;
+	border-left: none;
+	border-right: none;
+	outline: none;
+}
+
+#inputgrp {
+	width: 30%;
+	margin-left: 60%;
+}
+
+#inputgrp-box {
+	height: 5vh;
+	width: 50%;
+	border-top: none;
+	border-left: none;
+	border-right: none;
+	outline: none;
+}
+
+#button-addon2 {
+	height: 5vh;
+}
+
+.input-group {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    width: 43%;
+}
+
+/* transaction group */
+#group-1 {
+	width:15%;
+}
+
+#group-2 {
+	margin-left: 1%;
+	height: 35.5px;
+    width: 15%;
+}
+
+#shwTransBtn {
+	margin-left: 1%;
+	height: 37px;
+}
+
+#sub-btn {
+	width: 3%;
+    height: 6vh;
+    background-color: transparent;
+    border: none;
+}
+img {
+	vertical-align: middle;
+    width: 100%;
+}
+/* table */
+.table {
+	font-size: 15px;
+	width: 90%;
+	border-collapse: collapse;
+}
+
+.table td, .table th {
+	padding: 12px 15px;
+	border: 1px solid #ddd;
+	text-align: start;
+}
+
+.table th {
+	background-color: darkblue;
+	color: #ffffff;
+}
+
+.table tbody tr:nth-child(even) {
+	background-color: #f5f5f5;
+}
+
+.hide {
+	display: none;
+}
+
+#greyColumn {
+	color: grey;
+}
+
+#trans-btn {
+	height: 28px;
+	width: 80px;
+	margin-bottom: 4px;
+	padding: 1px;
+}
+
+#mode {
+	display: none;
+}
+
+@media ( max-width : 1000px) {
+	.table thead {
+		display: none;
+	}
+	.table, .table tbody, .table tr, .table td {
+		display: block;
+		width: 100%;
+	}
+	.table tr {
+		margin-bottom: 15px;
+	}
+	.table td {
+		text-align: right;
+		padding-Left: 50%;
+		text-align: right;
+		position: relative;
+	}
+	.table td::before {
+		content: attr(data-label);
+		position: absolute;
+		Left: 0;
+		width: 50%;
+		padding-Left: 15px;
+		font-size: 15px;
+		font-weight: bold;
+		text-align: left;
+	}
+}
+
+[placeholder]:focus::-webkit-input-placeholder {
+	transition: text-indent 0.4s 0.4s ease;
+	text-indent: -100%;
+	opacity: 1;
+}
+
+#cusInfo {
+	margin-left: 40px;
+	margin-top: 3%;
+}
