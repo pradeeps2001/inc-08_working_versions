@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Approve/Reject Request</title>
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="width=device-width,initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css"
+	href="../css/frameProps.css" />
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css2?family=Inter&display=swap">
+<script>
+	$(document).ready(function(){
+		var func = "Request Approval";
+		var obj = {
+			"name":func
+			};
+		var json = JSON.stringify(obj);
+		$.ajax ({
+			url : "../myServlet",
+			type:"POST",
+			asynch:"true",
+			data: json,
+			success: function(responce){
+				var json = JSON.parse(responce);
+				$(".created").remove();
+				for(key in json){
+					let obj = json[key];
+					reqId = obj.requestId;
+					custId = obj.customerId;
+					accNo = obj.accountNo;
+					amount = obj.amount;
+					time = obj.reqTime;
+					status = obj.reqStatus;
+					$("#tblBody").append(
+							"<tr class='created'>"								
+							+"<td data-label='Request ID'>"+reqId+"</td>"
+							+"<td data-label='Customer ID'>"+custId+"</td>"
+							+"<td data-label='Account No'>"+accNo+"</td>"
+							+"<td data-label='Amount'>"+amount+"</td>"
+							+"<td data-label='Request Time'>"+time+"</td>"
+							+"<td data-label='Status'>"+status+"</td>"
+							+"<td data-label='actions'><div class='text-centre'>"
+							+"<button class='btn btn-outline-success btn-sm' type='submit' id='approval' value='Approve Table' onclick='acceptWithdraw("+custId+","+accNo+","+reqId+")'>Approve</button>"
+							+"<button class='btn btn-outline-danger btn-sm ms-1' type='submit' id='approval' value='Reject Table' onclick='rejectWithdraw("+custId+","+accNo+","+reqId+")'>Reject</button>"
+							+"</div></td>"
+							+"</tr>"
+					);
+				}
+			},
+			error: function(){
+				
+			}
+		});
+	});
+	function acceptWithdraw(cusId,accNo,reqId){
+		var func = "Approve Table";
+		var cusId = cusId;
+		var accNo = accNo;
+		var reqId = reqId;
+		var obj = {
+				"name":func,
+				"cusId":cusId,
+				"accNo":accNo,
+				"reqId":reqId
+				};
+		var json = JSON.stringify(obj);
+		$.ajax ({
+			url : "../myServlet",
+			type:"POST",
+			asynch:"true",
+			data: json,
+			success: function(){
+				$("#content").load("AdminActions/RequestApproval.html");	
+			},
+			error: function(){
+				
+			}
+		});
+	}
+	function rejectWithdraw(cusId,accNo,reqId){
+		var func = "Reject Table";
+		var cusId = cusId;
+		var accNo = accNo;
+		var reqId = reqId;
+		var obj = {
+				"name":func,
+				"cusId":cusId,
+				"accNo":accNo,
+				"reqId":reqId
+				};
+		var json = JSON.stringify(obj);
+		$.ajax ({
+			url : "../myServlet",
+			type:"POST",
+			asynch:"true",
+			data: json,
+			success: function(){
+				$("#content").load("AdminActions/RequestApproval.html");	
+			},
+			error: function(){
+				
+			}
+		});
+	}
+</script>
+</head>
+<body>
+	<div>
+		<h4>Approve Request</h4>
+		<br>
+		<section>
+			<div>
+				<div id="transacTable" class="table table-responsive col-lg-6">
+					<table
+						class="table table-striped table-light table-hover table-borderless">
+						<thead>
+							<tr>
+								<th>Request ID</th>
+								<th>Customer ID</th>
+								<th>Account No</th>
+								<th>Amount</th>
+								<th>Request Time</th>
+								<th>Status</th>
+								<th>Actions</th>
+							</tr>
+						</thead>
+						<tbody id="tblBody">
+							<!-- <c:forEach var="map" items="${requestMap}">
+								<tr>
+									<td data-label="Request ID">${map.value.getRequestId()}</td>
+									<td data-label="Customer ID">${map.value.getCustomerId()}</td>
+									<td data-label="Account No">${map.value.getAccountNo()}</td>
+									<td data-label="Amount">${map.value.getAmount()}</td>
+									<td data-label="Request Time">${map.value.getReqTime()}</td>
+									<td data-label="Status">${map.value.getReqStatus()}</td>
+									<td>
+										<form action="<%=request.getContextPath()%>/myServlet"
+											method="post">
+											<input type="hidden" name="tableCusId"
+												value="${map.value.getCustomerId()}"> 
+											<input type="hidden" name="tableAccNo"
+												value="${map.value.getAccountNo()}">
+											<input type="hidden" name="tableReqId"
+												value="${map.value.getRequestId()}">
+											<div class="text-centre">
+												<button class="btn btn-outline-success btn-sm" type="submit" id="approval"
+													value="Approve Table" name="data">Approve</button>
+												<button class="btn btn-outline-danger btn-sm ms-1" type="submit" id="approval"
+													value="Reject Table" name="data">Reject</button>
+											</div>
+										</form>
+									</td>
+								</tr>
+							</c:forEach> -->
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</section>
+	</div>
+</body>
+</html>

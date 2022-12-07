@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Show Account Info</title>
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="width=device-width,initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css"
+	href="../css/frameProps.css" />
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css2?family=Inter&display=swap">
+<script>
+	$(document).ready(function(){
+		var func = "Show Account Info";
+		var obj = {
+			"name":func
+			};
+		var json = JSON.stringify(obj);
+		$.ajax ({
+			url : "../myServlet",
+			type:"POST",
+			asynch:"true",
+			data: json,
+			success: function(responce){
+				var json = JSON.parse(responce);
+				$(".created").remove();
+				
+				for(key in json){
+					let obj = json[key];
+					accNo = obj.accountNo;
+					accType = obj.accountType;
+					branch = obj.branch;
+					balance = obj.balance;
+					status = obj.status;
+					$("#tblBody").append(
+							"<tr class='created'>"								
+							+"<td data-label='Account No'>"+accNo+"</td>"
+							+"<td data-label='Account Type'>"+accType+"</td>"
+							+"<td data-label='Branch'>"+branch+"</td>"
+							+"<td data-label='Balance'>"+balance+"</td>"
+							+"<td data-label='Status'>"+status+"</td>"
+							+"</tr>"
+					);
+				}
+			},
+			error: function(){
+				
+			}
+		});
+		$("#showAcc").click(function(){
+			var func = "Show Accounts";
+			var custId = $("[name='customerId']").val();
+			var obj = {
+				"name":func,
+				"custId":custId
+				};
+			var json = JSON.stringify(obj);
+			$.ajax ({
+				url : "../myServlet",
+				type:"POST",
+				asynch:"true",
+				data: json,
+				success: function(responce){
+					console.log(responce);
+					var json = JSON.parse(responce);
+					$(".created").remove();
+					if(json.error != undefined){
+						$("#error").text(json.error);
+						$("#transacTable").hide();
+					} else {
+						$("#transacTable").show();
+						$("#error").hide();
+						for(key in json){
+							let obj = json[key];
+							accNo = obj.accountNo;
+							accType = obj.accountType;
+							branch = obj.branch;
+							balance = obj.balance;
+							status = obj.status;
+							$("#tblBody").append(
+									"<tr class='created'>"								
+									+"<td data-label='Account No'>"+accNo+"</td>"
+									+"<td data-label='Account Type'>"+accType+"</td>"
+									+"<td data-label='Branch'>"+branch+"</td>"
+									+"<td data-label='Balance'>"+balance+"</td>"
+									+"<td data-label='Status'>"+status+"</td>"
+									+"</tr>"
+							);
+						}
+					}
+				},
+				error: function(){
+					
+				}
+			});
+		});
+	});
+</script>
+</head>
+<body>
+	<div>
+		<h4>Account Details</h4>
+		<section>
+			<div>
+				<div>
+					<!-- <form action="<%=request.getContextPath()%>/myServlet"
+						method="post"> -->
+						<div id="inputgrp" class="mt-2">
+						<input id="inputgrp-box" type="number" name="customerId"
+									max="999999999999999" placeholder="Customer ID" required>
+							<!-- <c:choose>
+								<c:when test="${customerId == null }">
+									<input id="inputgrp-box" type="number" name="customerId"
+										max="999999999999999" placeholder="Customer ID" required>
+								</c:when>
+								<c:otherwise>
+									<input id="inputgrp-box" type="number"
+										value="<c:out value="${customerId}"/>" name="customerId"
+										required>
+								</c:otherwise>
+							</c:choose> -->
+							<button class="btn btn-outline-success btn-sm" type="submit"
+								value="Show Accounts" id="showAcc">Submit</button>
+						</div>
+						<div>
+							<span id="error" class="text-danger"></span>
+						</div>
+					<!-- </form> -->
+				</div>
+				<div id="transacTable" class="table table-responsive col-lg-6 mt-3">
+					<table
+						class="table table-striped table-light table-hover table-borderless">
+						<thead>
+							<tr class="${hide}">
+								<th>Account No</th>
+								<th>Account Type</th>
+								<th>Branch</th>
+								<th>Balance</th>
+								<th>Status</th>
+							</tr>
+						</thead>
+						<tbody id="tblBody">
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</section>
+	</div>
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Deposit/Withdraw</title>
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="width=device-width,initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css"
+	href="../css/frameProps.css" />
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css2?family=Inter&display=swap">
+<script>
+$(document).ready(function(){
+	var func = "Deposit Cash";
+	var obj = {
+		"name":func
+		};
+	var json = JSON.stringify(obj);
+	$.ajax ({
+		url : "../myServlet",
+		type:"POST",
+		asynch:"true",
+		data: json,
+		success: function(responce){
+			var json = JSON.parse(responce);
+			console.log(json);
+			var arr = json.accountList;
+			/*$("#bigDropdown").append(
+				"<option value='' selected disabled hidden='hidden'>Choose here</option>"
+			);*/
+			for(index in arr){
+				console.log(arr[index]);
+				$("#bigDropdown").append(
+						"<option value="+"\""+arr[index]+"\""+" >"+arr[index]+"</option>"
+					);
+			}
+		},
+		error: function(){
+			
+		}
+	});
+	$("[name='deposit']").click(function(){
+		var selectAcc = $("#bigDropdown").val();
+		var amount = $("[name='amount']").val();
+		var accObj = {
+				"accNo":selectAcc,
+				"amount":amount,
+				"mode":"Deposit",
+				"name":"Proceed"
+				};
+		var accJson = JSON.stringify(accObj);
+		$.ajax ({
+			url : "../myServlet",
+			type:"POST",
+			asynch:"true",
+			data: accJson,
+			success: function(responce){
+				var json = JSON.parse(responce);
+				if(json.error != undefined){
+					$("#error").show();
+					$("#success").hide();
+					$("#error").text(json.error);
+				} else if (json.success != undefined) {
+					$("#error").hide();
+					$("#success").show();
+					$("#success").text(json.success);
+					console.log("Deposited");
+				}
+			},
+			error: function(){
+				
+			}
+		});
+	});
+	$("#reset").click(function(){
+		$("[name='amount']").val("");
+	});
+});
+</script>
+</head>
+<body>
+	<div>
+		<h4>Deposit</h4>
+		<section>
+			<div class="container mx-auto my-auto mt-4">
+				<div class="card border-0 shadow rounded-3" id="smallCard">
+					<div class="card-body">
+							<div>
+								<label for="accountDrop" id="mediumLabel">Account : </label> 
+								<select name="accountDrop" id="bigDropdown" required>
+								</select>
+							</div>
+							<div>
+								<label id="mediumLabel">Amount : </label><input type="number"
+									id="underline" name="amount" min="1" placeholder="Enter Amount"
+									required>
+								<div class="text-centre mt-4">
+									<button class="btn btn-outline-success btn-sm" id="mdLabelBtn"
+										type="submit" value="Proceed" name="deposit">Deposit</button>
+									<button class="btn btn-outline-primary btn-sm ms-2" id="reset"
+										type="reset">Reset</button>
+								</div>
+							</div>
+							<br>
+							<div>
+								<span id="success" class="text-success"></span> 
+								<span id="error" style="color: red;"></span>
+							</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</div>
+</body>
+</html>

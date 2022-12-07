@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Customer Info</title>
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="width=device-width,initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="../css/frameProps.css" />
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css2?family=Inter&display=swap">
+<script>
+	$(document).ready(function(){
+		var func = "Edit Customer Details";
+		var obj = {
+			"name":func
+			};
+		var json = JSON.stringify(obj);
+		$.ajax ({
+			url : "../myServlet",
+			type:"POST",
+			asynch:"true",
+			data: json,
+			success: function(responce){
+				var json = JSON.parse(responce);
+				console.log(json);
+				let custId = json.custId;
+				let name = json.name;
+				let dob = json.dob;
+				let mail = json.mail;
+				let mobile = json.mobile;
+				let aadhar = json.aadhar;
+				let pan = json.pan;
+				
+				$("#cusId").append(custId);
+				$("#name").append(name);
+				$("#dob").append(dob);
+				$("[name='email']").val(mail);
+				$("[name='mobile']").val(mobile);
+				$("#aadhar").append(aadhar);
+				$("#pan").append(pan);
+			},
+			error: function(){
+				
+			}
+		});
+		$("#cusProfileBtn").click(function(){
+			var email = $("[name='email']").val();
+			var mobile = $("[name='mobile']").val();
+			var accObj = {
+					"email":email,
+					"mobile":mobile,
+					"name":"Update Details"
+					};
+			var accJson = JSON.stringify(accObj);
+			$.ajax ({
+				url : "../myServlet",
+				type:"POST",
+				asynch:"true",
+				data: accJson,
+				success: function(responce){
+					var json = JSON.parse(responce);
+					if(json.error != undefined){
+						$("#error").show();
+						$("#success").hide();
+						$("#error").text(json.error);
+					} else if (json.success != undefined) {
+						$("#success").show();
+						$("#error").hide();
+						$("#success").text(json.success);
+						console.log("Customer Details Updated");
+					}
+				},
+				error: function(){
+					
+				}
+			});
+		});
+	});
+</script>
+</head>
+<body>
+	<div>
+		<h4>Profile</h4>
+		<section>
+			<div class="container mx-auto my-auto mt-4">
+				<div class="card border-0 shadow rounded-3" id="profile-card">
+					<div class="card-body">
+						<div class="table-responsive" id="cusInfo">
+							<table
+								class="table table-striped table-light table-hover table-borderless">
+								<tr>
+									<td id="greyColumn">Customer ID</td>
+									<td id="cusId"></td>
+								</tr>
+								<tr>
+									<td id="greyColumn">Name</td>
+									<td id="name"></td>
+								</tr>
+								<tr>
+									<td id="greyColumn">DOB</td>
+									<td id="dob"></td>
+								</tr>
+								<tr>
+									<td id="greyColumn">E-MAIL</td>
+									<td><input class="prflInput" type="email" value=""
+										name="email"></td>
+								</tr>
+								<tr>
+									<td id="greyColumn">Mobile</td>
+									<td><input class="prflInput" type="number" value=""
+										name="mobile"></td>
+								</tr>
+								<tr>
+									<td id="greyColumn">Aadhaar Number</td>
+									<td id="aadhar"></td>
+								</tr>
+								<tr>
+									<td id="greyColumn">PAN Number</td>
+									<td id="pan"></td>
+								</tr>
+							</table>
+						</div>
+						<div class="text-centre ms-2">
+							<button class="btn btn-outline-success btn-sm" id="cusProfileBtn"
+								type="submit" value="Update Details">Save</button>
+							<button class="btn btn-outline-primary btn-sm ms-2" type="reset">Reset</button>
+						</div>
+						<br>
+						<div>
+							<span id="success" class="text-success"></span> 
+							<span id="error" class="text-danger"></span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</div>
+</body>
+</html>

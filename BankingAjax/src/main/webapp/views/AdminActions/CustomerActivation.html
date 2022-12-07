@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Customer Activation</title>
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="width=device-width,initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="../css/frameProps.css" />
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css2?family=Inter&display=swap">
+<script>
+	$(document).ready(function(){
+		var func = "Customer Activation";
+		var obj = {
+			"name":func
+			};
+		var json = JSON.stringify(obj);
+		$.ajax ({
+			url : "../myServlet",
+			type:"POST",
+			asynch:"true",
+			data: json,
+			success: function(responce){
+				
+			},
+			error: function(){
+				
+			}
+		});
+		$("[name='activate']").click(function(){
+			var func = "Activate Customer";
+			var custId = $("#custId").val();
+			var obj = {
+				"name":func,
+				"custId":custId
+				};
+			var json = JSON.stringify(obj);
+			$.ajax ({
+				url : "../myServlet",
+				type:"POST",
+				asynch:"true",
+				data: json,
+				success: function(responce){
+					var json = JSON.parse(responce);
+					$("#error").hide();
+					$("#activated").hide();
+					if(json.error != undefined){
+						$("#error").show();
+						$("#activated").hide();
+						$("#deactivated").hide();
+						$("#error").text(json.error);
+					} else if (json.activated != undefined) {
+						$("#error").hide();
+						$("#activated").show();
+						$("#deactivated").hide();
+						$("#activated").text(json.activated);
+					}
+					console.log("Customer Activated");
+				},
+				error: function(){
+					
+				}
+			});
+		});
+		$("[name='deactivate']").click(function(){
+			var func = "Deactivate Customer";
+			var custId = $("#custId").val();
+			var obj = {
+				"name":func,
+				"custId":custId
+				};
+			var json = JSON.stringify(obj);
+			$.ajax ({
+				url : "../myServlet",
+				type:"POST",
+				asynch:"true",
+				data: json,
+				success: function(responce){
+					var json = JSON.parse(responce);
+					$("#error").hide();
+					$("#deactivated").hide();
+					if(json.error != undefined){
+						$("#activated").hide();
+						$("#error").show();
+						$("#deactivated").hide();
+						$("#error").text(json.error);
+					} else if (json.deactivated != undefined) {
+						$("#activated").hide();
+						$("#error").hide();
+						$("#deactivated").show();
+						$("#deactivated").text(json.deactivated);
+					}
+					console.log("Customer Deactivated");
+				},
+				error: function(){
+					
+				}
+			});
+		});
+	});
+</script>
+</head>
+<body>
+	<div>
+		<h4>Customer Activation</h4>
+		<section>
+			<div class="container mx-auto my-auto mt-4">
+				<div class="card border-0 shadow rounded-3" id="smallCard">
+					<div class="card-body">
+						<div>
+							<label>Customer ID : </label><input type="number" id="custId"
+								name="customerId" max="999999999999999"
+								placeholder="Customer ID" required></input>
+						</div>
+						<div class="text-centre mt-4">
+							<button class="btn btn-outline-success btn-sm" type="submit"
+								id="smCardBtn" value="Activate Customer" name="activate">Activate</button>
+							<button class="btn btn-outline-danger btn-sm ms-2" type="submit"
+								value="Deactivate Customer" name="deactivate">Deactivate</button>
+						</div>
+						<br>
+						<div>
+							<span id="activated" class="text-success"></span> 
+							<span id="deactivated"class="text-danger"></span> 
+							<span id="error"class="text-danger"></span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</div>
+</body>
+</html>
