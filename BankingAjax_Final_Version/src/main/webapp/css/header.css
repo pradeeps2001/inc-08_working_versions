@@ -1,0 +1,24 @@
+@charset "UTF-8";
+
+* {
+	font-family: 'Inter', sans-serif;
+}
+
+#bankname {
+	color: white;
+	float: left;
+	font-family: cursive;
+    font-size: 53px;
+    margin-top: 1.4%;
+}
+
+#logout {
+	float: right;
+	margin-right: 10px;
+}
+
+body {
+	background: rgb(0, 78, 174);
+	background: linear-gradient(90deg, rgba(0, 78, 174, 1) 21%,
+		rgba(0, 212, 255, 1) 82%);
+}

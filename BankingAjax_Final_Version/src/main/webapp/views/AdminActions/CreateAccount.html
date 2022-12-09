@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Create Account</title>
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="width=device-width,initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css"
+	href="../css/frameProps.css" />
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css2?family=Inter&display=swap">
+<script>
+	$(document).ready(function(){
+		var func = "Create Account";
+		var obj = {
+			"name":func
+			};
+		var json = JSON.stringify(obj);
+		$.ajax ({
+			url : "../myServlet",
+			type:"POST",
+			asynch:"true",
+			data: json,
+			success: function(responce){
+				
+			},
+			error: function(){
+				
+			}
+		});
+		$("[name='addAcc']").click(function(){
+			var func = "Add Account";
+			var custId = $("[name='customerId']").val();
+			var type = $("#hugeLabel").val();
+			var branch = $("[name='branch']").val();
+			var balance = $("[name='balance']").val();
+			var obj = {
+				"name":func,
+				"custId":custId,
+				"type":type,
+				"branch":branch,
+				"balance":balance
+				};
+			var json = JSON.stringify(obj);
+			$.ajax ({
+				url : "../myServlet",
+				type:"POST",
+				asynch:"true",
+				data: json,
+				success: function(responce){
+					var json = JSON.parse(responce);
+					if(json.error != undefined){
+						$("#error").show();
+						$("#success").hide();
+						$("#error").text(json.error);
+					} else if (json.success != undefined) {
+						$("#error").hide();
+						$("#success").show();
+						$("#success").text(json.success);
+						console.log("Account Created");
+					}
+				},
+				error: function(){
+					
+				}
+			});
+		});
+		$("#reset").click(function(){
+			$("[name='customerId']").val("");
+			$("[name='type']").val("");
+			$("[name='branch']").val("");
+			$("[name='balance']").val("");
+		});
+	});
+</script>
+</head>
+<body>
+	<div>
+		<h4>Create Account</h4>
+		<section>
+			<div class="container mx-auto my-auto mt-4">
+				<div class="card border-0 shadow rounded-3" id="smallCard">
+					<div class="card-body">
+							<div>
+								<label>Customer ID : </label><input id="underline" type="text"
+									max="999999999999999" name="customerId" required></input>
+							</div>
+							<div>
+								<label for="type">Account Type: </label> <select name="type"
+									id="hugeLabel" required>
+									<option value="" selected disabled hidden="hidden">Choose
+										here</option>
+									<option value="Savings">SAVINGS</option>
+									<option value="Fixed Deposit">FIXED DEPOSIT</option>
+									<option value="Salary">SALARY</option>
+								</select>
+							</div>
+							<div>
+								<label>Branch : </label><input id="underline" type="text" name="branch"
+									maxlength="30"></input>
+							</div>
+							<div>
+								<label>Initial Balance : </label><input id="underline" type="number"
+									max="20000" name="balance" required></input>
+							</div>
+							<div class="text-centre mt-3">
+								<button class="btn btn-outline-success btn-sm" type="submit" id="smCardBtn"
+									value="Add Account" name="addAcc">Add Account</button>
+								<button id="reset" class="btn btn-outline-primary btn-sm ms-2" type="reset">Reset</button>
+							</div>
+							<div>
+								<span id="success" class="text-success"></span> 
+								<span id="error" style="color: red;"></span>
+							</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</div>
+</body>
+</html>

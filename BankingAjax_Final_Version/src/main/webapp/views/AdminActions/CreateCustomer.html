@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Create Customer</title>
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="width=device-width,initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css"
+	href="../css/frameProps.css"/>
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css2?family=Inter&display=swap">
+<script>
+	$(document).ready(function(){
+		var func = "Create Customer";
+		var obj = {
+			"name":func
+			};
+		var json = JSON.stringify(obj);
+		$.ajax ({
+			url : "../myServlet",
+			type:"POST",
+			asynch:"true",
+			data: json,
+			success: function(){
+				
+			},
+			error: function(){
+				
+			}
+		});
+		$("[name='addCust']").click(function(){
+			var func = "Add Customer";
+			var name = $("[name='name']").val();
+			var dob = $("[name='dob']").val();
+			var email = $("[name='email']").val();
+			var mobile = $("[name='mobile']").val();
+			var pass = $("[name='password']").val();
+			var aadhar = $("[name='aadhar']").val();
+			var pan = $("[name='pan']").val();
+			var obj = {
+				"name":func,
+				"userName":name,
+				"dob":dob,
+				"email":email,
+				"mobile":mobile,
+				"pass":pass,
+				"aadhar":aadhar,
+				"pan":pan
+				};
+			var json = JSON.stringify(obj);
+			$.ajax ({
+				url : "../myServlet",
+				type:"POST",
+				asynch:"true",
+				data: json,
+				success: function(responce){
+					var json = JSON.parse(responce);
+					if(json.error != undefined){
+						$("#error").show();
+						$("#success").hide();
+						$("#error").text(json.error);
+					} else if (json.success != undefined) {
+						$("#error").hide();
+						$("#success").show();
+						$("#success").text(json.success);
+						console.log("Customer Created");
+					}
+				},
+				error: function(){
+					
+				}
+			});
+		});
+		$("#reset").click(function(){
+			$("[name='name']").val("");
+			$("[name='dob']").val("");
+			$("[name='email']").val("");
+			$("[name='mobile']").val("");
+			$("[name='aadhar']").val("");
+			$("[name='pan']").val("");
+			$("[name='password']").val("");
+		});
+	});
+</script>
+</head>
+<body>
+	<div>
+		<h4>Create Customer</h4>
+		<div class="container mx-auto my-auto mt-4">
+			<div class="card border-0 shadow rounded-3" id="smallCard">
+				<div class="card-body">
+						<div>
+							<label>Name : </label><input id="underline" type="text" name="name" required></input>
+						</div>
+						<div>
+							<label>DOB : </label><input id="underline" type="date" name="dob"
+								min="1912-01-01" max="2004-01-01" required></input>
+						</div>
+						<div>
+							<label>E-mail : </label><input id="underline" type="email" name="email" required></input>
+						</div>
+						<div>
+							<label>Mobile Number : </label><input id="underline" type="number" name="mobile"
+								required></input>
+						</div>
+						<div>
+							<label>Aadhaar Number : </label><input id="underline" type="number" max="999999999999999"
+								name="aadhar" required></input>
+						</div>
+						<div>
+							<label>PAN Number : </label><input id="underline" type="text" name="pan"
+								required></input>
+						</div>
+						<div>
+							<label>Password : </label><input id="underline" type="password" name="password"
+								required></input>
+						</div>
+						<div class="text-centre mt-3">
+							<button class="btn btn-outline-success btn-sm" type="submit" id="smCardBtn"
+								value="Add Customer" name="addCust">Add Customer</button>
+							<button class="btn btn-outline-primary btn-sm ms-2" id="reset" type="reset">Reset</button>
+						</div>
+						<div>
+							<span id="success" class="text-success"></span> 
+							<span id="error" class="text-danger"></span>
+						</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

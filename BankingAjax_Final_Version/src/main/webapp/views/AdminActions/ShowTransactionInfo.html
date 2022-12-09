@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Transaction Info</title>
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="width=device-width,initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css"
+	href="../css/frameProps.css" />
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css2?family=Inter&display=swap">
+<script>
+	$(document).ready(function(){
+		$("#transacTable").hide();
+		var func = "Show Transaction Info";
+		var obj = {
+			"name":func
+			};
+		var json = JSON.stringify(obj);
+		$.ajax ({
+			url : "../myServlet",
+			type:"POST",
+			asynch:"true",
+			data: json,
+			success: function(){
+			},
+			error: function(){
+				
+			}
+		});
+		$("#shwTransBtn").click(function(){
+			var custId = $("[name='customerId']").val();
+			var time = $("[name='time']").val();
+			var accObj = {
+					"custId":custId,
+					"time":time,
+					"name":"Show Statement"
+					};
+			var accJson = JSON.stringify(accObj);
+			$.ajax ({
+				url : "../myServlet",
+				type:"POST",
+				asynch:"true",
+				data: accJson,
+				success: function(responce){
+					var map = JSON.parse(responce);
+					console.log(map.error);
+					$(".created").remove();
+					if(map.error != undefined){
+						$("#error").text(map.error);
+						$("#transacTable").hide();
+					} else {
+						$("#transacTable").show();
+						$("#error").hide();
+						for(key in map){
+							let inner = map[key];
+							for(val in inner){
+								let obj = inner[val];
+								let accNo = obj.accountNo;
+								let tranId = obj.transferId;
+								let time = obj.time;
+								let mode = obj.mode;
+								let type = obj.type;
+								let amount = obj.amount;
+								let received = obj.receivedFrom;
+								let sent = obj.sendTo;
+								let finalBal = obj.balance;
+								$("#tblBody").append(
+									"<tr class='created'>"								
+									+"<td data-label='Account No'>"+accNo+"</td>"
+									+"<td data-label='ID'>"+tranId+"</td>"
+									+"<td data-label='Time'>"+time+"</td>"
+									+"<td data-label='Mode'>"+mode+"</td>"
+									+"<td data-label='Type'>"+type+"</td>"
+									+"<td data-label='Amount'>"+amount+"</td>"
+									+"<td data-label='Received From'>"+received+"</td>"
+									+"<td data-label='Sent To'>"+sent+"</td>"
+									+"<td data-label='Balance'>"+finalBal+"</td>"
+									+"</tr>"
+								);
+							}
+						}
+					}
+				},
+				error: function(){
+					
+				}
+			});
+		});
+	});
+</script>
+</head>
+<body>
+	<div>
+		<h4>Transaction History</h4>
+		<br>
+		<section>
+			<div>
+					<div class="form-inline">
+						<input type="number" name="customerId" id="group-1"
+								max="999999999999999" placeholder="Customer ID" required>
+						<!-- <c:choose>
+							<c:when test="${customerId == null }">
+								<input type="number" name="customerId" id="group-1"
+									placeholder="Customer ID" required>
+							</c:when>
+							<c:otherwise>
+								<input type="number" name="customerId" id="group-1"
+									value="<c:out value="${customerId}"/>" required>
+							</c:otherwise>
+						</c:choose> -->
+						<select name="time" id="group-2" required>
+							<!-- <c:choose>
+								<c:when test="${time == null }">
+									<option value="" selected disabled hidden="hidden">Time
+										Period</option>
+								</c:when>
+								<c:otherwise>
+									<option value="${time}">${time}</option>
+								</c:otherwise>
+							</c:choose>
+							<option value="" selected disabled hidden="hidden">Time Period</option> -->
+							<option value="1 Week">One Week</option>
+							<option value="1 Month">One Month</option>
+							<option value="6 Month">Six Months</option>
+						</select>
+						<button class="btn btn-outline-primary btn-sm" type="submit"
+							id="shwTransBtn" value="Show Statement">Show</button>
+					</div>
+					<div>
+						<span id="error" class="text-danger"></span>
+					</div>
+				<br>
+				<div id="transacTable" class="table table-responsive col-lg-6">
+					<table
+						class="table table-striped table-light table-hover table-borderless">
+						<thead>
+							<tr class="${hide}">
+								<th>Account No</th>
+								<th>ID</th>
+								<th>Time</th>
+								<th>Mode</th>
+								<th>Type</th>
+								<th>Amount</th>
+								<th>Received From</th>
+								<th>Sent To</th>
+								<th>Balance</th>
+							</tr>
+						</thead>
+						<tbody id="tblBody">
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</section>
+	</div>
+</body>
+</html>

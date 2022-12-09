@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Admin Page</title>
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="width=device-width,initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css2?family=Inter&display=swap">
+<link rel="stylesheet" type="text/css" href="../css/homepage.css" />
+<link rel="icon" href="../images/banklogo.png" type="image/x-icon">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="../script/adminHome.js"></script>
+</head>
+<body>
+	<div id="header" class="border-bottom border-secondary">
+		<header>
+			<div id="badge">
+				<img id="logo" alt="bank logo" src="../images/banklogo.png">
+				<h2 id="bankname">Lucas Federal Bank</h2>
+				<div class="right-menu">
+						<button id="usericon" class="btn btn-dark btn-sm" type="button"
+							value="drop" name="data">
+							<img id="manicon" alt="menu" src="../images/user1.png">
+						</button>
+					<div class="userdrop-menu">
+						<div class="text-centre mt-1">
+							<button class="btn btn-dark btn-sm" id="menubtn" type="submit"
+								value="Edit Admin Details" name="profile">
+								<span id="icons" class="material-symbols-outlined">settings</span><span
+									id="dropProfile">Profile</span>
+							</button>
+						</div>
+						<div class="text-centre mt-1">
+							<button class="btn btn-dark btn-sm" id="menubtn" type="submit"
+								value="Password Change" name="editPass">
+								<span id="icons" class="material-symbols-outlined">key</span><span
+									id="dropPass">Edit Password</span>
+							</button>
+						</div>
+						<div class="text-centre mt-1">
+							<button class="btn btn-dark btn-sm" id="logout" type="submit"
+								value="LOGOUT">
+								<span id="icons" class="material-symbols-outlined">logout</span><span
+									id="dropLogout">Logout</span>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</header>
+	</div>
+	<div name="menu" id="menuframe" align="left">
+		<div class="menu-container">
+			<h6>Welcome Admin</h6>
+			<button type="submit" class="menu" id="start"
+				class="btn btn-secondary btn-sm" value="Home Page" name="data">
+				<span id="icons" class="material-symbols-outlined">home</span>Home
+			</button>
+			<button type="submit" id="customers" class="menu"
+				class="btn btn-secondary btn-sm" value="Show Customer Info"
+				name="data">
+				<span id="icons" class="material-symbols-outlined">group</span>Customers
+			</button>
+			<button type="submit" id="accounts" class="menu"
+				class="btn btn-secondary btn-sm" value="Show Account Info"
+				name="data">
+				<span id="icons" class="material-symbols-outlined">account_balance</span>Accounts
+			</button>
+			<button type="submit" id="transactions" class="menu"
+				class="btn btn-secondary btn-sm" value="Show Transaction Info"
+				name="data">
+				<span id="icons" class="material-symbols-outlined">currency_exchange</span>Transactions
+			</button>
+			<button type="submit" id="reqApproval" class="menu"
+				class="btn btn-secondary btn-sm" value="Request Approval"
+				name="data">
+				<span id="icons" class="material-symbols-outlined">rule</span>Request
+				Approval
+			</button>
+			<div class="transac-menu">
+				<div>
+					<button class="menu" id="menuicon" class="btn btn-dark btn-sm mt-1"
+						type="button" value="drop">
+						<span id="icons" class="material-symbols-outlined">add</span>
+						<p id="create">Create</p>
+					</button>
+				</div>
+				<div class="admin-dropdown">
+					<div class="text-centre">
+						<button type="submit" id="createCus" class="dropdownMenu"
+							class="btn btn-secondary btn-sm" value="Create Customer"
+							name="data">
+							<span id="icons" class="material-symbols-outlined">person_add</span>Customer
+						</button>
+					</div>
+					<div class="text-centre mt-1">
+						<button type="submit" id="createAcc" class="dropdownMenu"
+							class="btn btn-secondary btn-sm" value="Create Account"
+							name="data">
+							<span id="icons" class="material-symbols-outlined">account_balance_wallet</span>Account
+						</button>
+					</div>
+				</div>
+			</div>
+			<div class="transac-menu">
+				<div>
+					<button class="menu" id="menuicon" class="btn btn-dark btn-sm mt-1"
+						type="button" value="drop">
+						<span id="icons" class="material-symbols-outlined">verified_user</span>
+						<p id="activate">Activate</p>
+					</button>
+				</div>
+				<div class="admin-dropdown">
+					<div class="text-centre">
+						<button type="submit" id="activateCus" class="dropdownMenu"
+							class="btn btn-secondary btn-sm" value="Customer Activation"
+							name="data">
+							<span id="icons" class="material-symbols-outlined">person_add</span>Customer
+						</button>
+					</div>
+					<div class="text-centre mt-1">
+						<button type="submit" id="activateAcc" class="dropdownMenu"
+							class="btn btn-secondary btn-sm" value="Account Activation"
+							name="data">
+							<span id="icons" class="material-symbols-outlined">account_balance_wallet</span>Account
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div name="content" id="content"></div>
+	<footer id="footer">
+		<div class="social-links">
+			<ul>
+				<li class="social-items"><a href="#">Follow us</a></li>
+				<li class="social-items"><a href="https://www.facebook.com/zoho/"
+					target="_blank"><ion-icon name="logo-facebook"></ion-icon></a></li>
+				<li class="social-items"><a
+					href="https://twitter.com/Zoho?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor" target="_blank"><ion-icon
+							name="logo-twitter"></ion-icon></a></li>
+				<li class="social-items"><a
+					href="https://www.linkedin.com/company/zoho/?originalSubdomain=in" target="_blank"><ion-icon
+							name="logo-linkedin"></ion-icon></a></li>
+				<li class="social-items"><a
+					href="https://www.instagram.com/zoho/?hl=en" target="_blank"><ion-icon
+							name="logo-instagram"></ion-icon></a></li>
+			</ul>
+		</div>
+		<div class="copyright">Copyright © 2022, Pradeep's Project</div>
+		<div class="quick-links">
+			<ul>
+				<li class="quick-items"><a href="#"><span id="footer-icon"
+						class="material-symbols-outlined">design_services</span>Services</a></li>
+				<li class="quick-items"><a href="#"><span id="footer-icon"
+						class="material-symbols-outlined">info</span>About Us</a></li>
+				<li class="quick-items"><a href="#"><span id="footer-icon"
+						class="material-symbols-outlined">forum</span>Feedback</a></li>
+			</ul>
+		</div>
+	</footer>
+	<script type="module"
+		src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+	<script nomodule
+		src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
+</html>

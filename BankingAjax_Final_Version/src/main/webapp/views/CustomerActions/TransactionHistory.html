@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Account Info</title>
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="width=device-width,initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css"
+	href="../css/frameProps.css" />
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css2?family=Inter&display=swap">
+<script>
+$(document).ready(function(){
+	$("#transacTable").hide();
+	var func = "Transaction History";
+	var obj = {
+		"name":func
+		};
+	var json = JSON.stringify(obj);
+	$.ajax ({
+		url : "../myServlet",
+		type:"POST",
+		asynch:"true",
+		data: json,
+		success: function(responce){
+			var json = JSON.parse(responce);
+			console.log(json);
+			var arr = json.accountList;
+			/*$("#accDrop").append(
+				"<option value='' selected disabled hidden='hidden'>Choose here</option>"
+			);*/
+			for(index in arr){
+				console.log(arr[index]);
+				$("#accDrop").append(
+						"<option value="+"\""+arr[index]+"\""+">"+arr[index]+"</option>"
+				);
+				$("#trans-btn").trigger('click');
+			}
+		},
+		error: function(){
+			
+		}
+	});
+	$("#trans-btn").click(function(){
+		var selectAcc = $("#accDrop").val();
+		var accObj = {
+				"accNo":selectAcc,
+				"name":"Confirm"
+				};
+		var accJson = JSON.stringify(accObj);
+		$.ajax ({
+			url : "../myServlet",
+			type:"POST",
+			asynch:"true",
+			data: accJson,
+			success: function(responce){
+				console.log("resp"+responce);
+				var map = JSON.parse(responce);
+				console.log(map);
+				$(".created").remove();
+				if(map.error != undefined){
+					$("#error").show();
+					$("#transacTable").hide();
+					$("#error").text(map.error);
+				} else {
+					$("#error").hide();
+					$("#transacTable").show();
+					for(key in map){
+						let obj = map[key];
+						let accNo = obj.accountNo;
+						let tranId = obj.transferId;
+						let time = obj.time;
+						let mode = obj.mode;
+						let type = obj.type;
+						let amount = obj.amount;
+						let received = obj.receivedFrom;
+						let sent = obj.sendTo;
+						let finalBal = obj.balance;
+						$("#tblBody").append(
+							"<tr class='created'>"								
+							+"<td data-label='Account No'>"+accNo+"</td>"
+							+"<td data-label='ID'>"+tranId+"</td>"
+							+"<td data-label='Time'>"+time+"</td>"
+							+"<td data-label='Mode'>"+mode+"</td>"
+							+"<td data-label='Type'>"+type+"</td>"
+							+"<td data-label='Amount'>"+amount+"</td>"
+							+"<td data-label='Received From'>"+received+"</td>"
+							+"<td data-label='Sent To'>"+sent+"</td>"
+							+"<td data-label='Balance'>"+finalBal+"</td>"
+							+"</tr>"
+						);
+					}
+				}
+			},
+			error: function(){
+				
+			}
+		});
+	});
+});
+</script>
+</head>
+<body>
+	<div>
+		<h4>Transaction History</h4>
+		<section>
+			<div>
+				<div>
+					<label for="accountDrop" id="smallLabel">Account : </label> 
+					<select id="accDrop" name="accountDrop" required>
+					</select>
+					<button class="btn btn-outline-success btn-sm ms-3" type="submit"
+						id="trans-btn" value="Confirm" name="data">Show</button>
+				</div>
+				<br>
+				<div id="transacTable" class="table table-responsive col-lg-6">
+					<table
+						class="table table-striped table-light table-hover table-borderless table-fixed">
+						<thead>
+							<tr class="${hide}">
+								<th>Account No</th>
+								<th>ID</th>
+								<th>Time</th>
+								<th>Mode</th>
+								<th>Type</th>
+								<th>Amount</th>
+								<th>Received From</th>
+								<th>Sent To</th>
+								<th>Balance</th>
+							</tr>
+						</thead>
+						<tbody id="tblBody">
+						</tbody>
+					</table>
+				</div>
+				<div>
+					<span id="error" style="color: red;"></span>
+				</div>
+			</div>
+		</section>
+	</div>
+</body>
+</html>
